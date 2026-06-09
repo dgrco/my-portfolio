@@ -11,7 +11,9 @@ export const metadata = {
   live: "https://ironpawn.vercel.app",
 }
 
-# IronPawn
+import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
+
+<MDXTitleWithLinks title="IronPawn" links={{ githubLink: metadata.github, liveLink: "https://ironpawn.vercel.app" }} />
 
 A chess engine written in C. Compiles to a native binary for UCI use, or to a `.wasm` module via Emscripten. Play against it at [ironpawn.vercel.app](https://ironpawn.vercel.app) — you play as white.
 
