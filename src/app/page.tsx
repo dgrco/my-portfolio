@@ -18,12 +18,13 @@ const LinkedInIcon = ({ size = 16 }: { size?: number }) => (
 );
 
 const stack = [
+  "Golang",
+  "C/C++",
+  "Docker",
   "TypeScript",
+  "Postgres",
   "React",
   "Next.js",
-  "Postgres",
-  "Docker",
-  "C++",
   "Linux",
   "Git",
 ];
