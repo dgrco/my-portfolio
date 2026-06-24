@@ -68,9 +68,9 @@ export default async function Home() {
 
               <p className="text-[16px] text-muted-foreground leading-relaxed max-w-lg">
                 CS graduate building things that matter. Currently developing a
-                scheduling SaaS from the ground up — product, engineering, and
+                scheduling SaaS from the ground up: product, engineering, and
                 everything in between. I like systems that are fast, simple, and
-                actually useful.
+                useful.
               </p>
               <div className="flex flex-wrap gap-2 mt-5">
                 <Link
