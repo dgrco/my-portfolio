@@ -15,53 +15,53 @@ import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
 
 <MDXTitleWithLinks title="IronPawn" links={{ githubLink: metadata.github, liveLink: "https://ironpawn.vercel.app" }} />
 
-A chess engine written in C. Compiles to a native binary for UCI use, or to a `.wasm` module via Emscripten. Play against it at [ironpawn.vercel.app](https://ironpawn.vercel.app) — you play as white.
+I wrote this chess engine in C. It compiles to a native binary you can run through UCI, or to a `.wasm` module via Emscripten. You can play against it at [ironpawn.vercel.app](https://ironpawn.vercel.app), and you'll be playing as white.
 
 ## Architecture
 
-The WebAssembly build exposes two functions to the outside world: `wasm_init()` and `wasm_process_uci_command()`. A Next.js frontend loads the module and communicates with it using a subset of the UCI protocol — the same protocol used by desktop chess GUIs like Arena or Lichess's analysis board. This means the engine itself has no knowledge of the web; it just speaks UCI and the frontend adapts.
+The WebAssembly build only exposes two functions to the outside world: `wasm_init()` and `wasm_process_uci_command()`. A Next.js frontend loads the module and talks to it using a subset of the UCI protocol, the same protocol desktop chess GUIs like Arena or Lichess's analysis board use. So the engine itself doesn't know anything about the web. It just speaks UCI, and the frontend handles the rest.
 
 ## Board representation: bitboards
 
-The board is represented using bitboards — one `uint64_t` per piece type per color. Each bit corresponds to a square, so a set bit means that piece occupies that square.
+The board is represented with bitboards, one `uint64_t` per piece type per color. Each bit lines up with a square, so if the bit is set, that piece is sitting on that square.
 
-The key advantage over the traditional **mailbox** approach (a 64-element array) is that whole-board operations collapse into single instructions. Generating all white pawn pushes, for example:
+The big win over a traditional **mailbox** approach (a 64-element array) is that whole-board operations turn into single instructions. Here's what generating all white pawn pushes looks like:
 
 ```c
 BITBOARD pawn_pushes = white_pawns << 8;  // advance every pawn at once
 pawn_pushes &= empty_squares;             // remove blocked ones at once
 ```
 
-With a mailbox you'd loop all 64 squares, find each pawn, and branch on occupancy. With bitboards it's two instructions regardless of how many pawns are on the board.
+With a mailbox you'd have to loop through all 64 squares, find each pawn, and check occupancy one by one. With bitboards it's just two instructions, no matter how many pawns are on the board.
 
 ### Sliding pieces and magic numbers
 
-Knights and kings have fixed move sets — given a square, there's exactly one set of reachable squares ignoring same-color blockers. Pawns are nearly as simple. But bishops, rooks, and queens are different: their reachable squares depend heavily on what's blocking their rays. A rook on `e4` with a piece on `e6` can't reach `e7` or `e8`, but move that blocker to `e7` and suddenly `e6` opens up.
+Knights and kings are easy. Given a square, there's exactly one set of reachable squares (ignoring same-color blockers). Pawns aren't much harder. But bishops, rooks, and queens are trickier, because what they can reach depends entirely on what's in their way. A rook on `e4` with a piece on `e6` can't get to `e7` or `e8`, but move that blocker to `e7` and suddenly `e6` is open.
 
-The naive fix is ray-walking: step along each ray until you hit a piece or the edge. It works, but it runs millions of times per second during search, so the cost adds up.
+The obvious fix is to walk each ray step by step until you hit a piece or the edge of the board. That works fine, but it runs millions of times a second during search, so the cost piles up fast.
 
-The better approach is to precompute the legal moves for every possible blocker arrangement per square and store them in a lookup table. At runtime, move generation is a single table lookup — O(1).
+A better approach is to precompute the legal moves for every possible blocker arrangement on a given square and stash them in a lookup table. At runtime, move generation is just one table lookup, O(1).
 
-The hard part is turning the current board state into a table index cheaply. This is where **magic numbers** come in.
+The tricky part is turning the current board state into a table index cheaply. That's where **magic numbers** come in.
 
-For each square, a **blocker mask** marks the relevant squares along that piece's rays, excluding edges (whether an edge square is occupied never changes the outcome). A rook has around 10 relevant squares, giving `2^10 = 1024` possible blocker configurations — manageable. The actual pieces sitting on those squares right now form the **blocker**:
+For each square, a **blocker mask** marks the squares that actually matter along that piece's rays, ignoring the edges (whether an edge square is occupied never changes anything). A rook has around 10 relevant squares, which gives `2^10 = 1024` possible blocker configurations, a manageable number. The actual pieces sitting on those squares right now make up the **blocker**:
 
 ```c
 blocker = blocker_mask[square] & all_pieces;
 ```
 
-The blocker is still a 64-bit integer with bits scattered all over it, so it can't be used as an index directly. A **magic number** is a constant that, when multiplied with any valid blocker for a given square, maps it to a unique value in a small contiguous range. No two different blocker patterns produce the same index — no collisions. The index is then:
+The blocker is still a 64-bit integer with bits scattered all over it, so you can't use it as an index directly. A **magic number** is a constant that, when multiplied with any valid blocker for a given square, maps it to a unique value in a small contiguous range. No two different blocker patterns collide into the same index. From there, the index is:
 
 ```c
 index = (blocker * MAGIC[square]) >> SHIFT[square];
 moves = table[square][index];
 ```
 
-There's no formula for finding magic numbers — they're found by brute force and hardcoded. Queens reuse both tables: diagonal moves use the bishop table, straight moves use the rook table.
+There's no clean formula for finding these magic numbers. They're found by brute force and then hardcoded. Queens just reuse both tables: diagonal moves pull from the bishop table, straight moves from the rook table.
 
 ## Move representation
 
-Each move is packed into a `uint32_t`:
+Each move gets packed into a `uint32_t`:
 
 ```text
 bits  0–5:   from square  (0–63)
@@ -69,37 +69,37 @@ bits  6–11:  to square    (0–63)
 bits 12–15:  flags        (promotion, etc.)
 ```
 
-Packing moves this way keeps the move list compact and stack-allocated — no heap allocation during search, which matters at depth.
+Packing moves this way keeps the move list small and stack-allocated, so there's no heap allocation during search, which matters once you're searching deep.
 
 ## Search: minimax with alpha-beta pruning
 
-The search is a standard negamax minimax. White maximizes, black minimizes. The default depth is **6 plies** (half-moves).
+The search is a standard negamax minimax. White maximizes, black minimizes. Default depth is **6 plies** (half-moves).
 
-**Alpha-beta pruning** tracks two bounds — `alpha` (best the maximizer is guaranteed) and `beta` (best the minimizer is guaranteed). When a branch is proven to be worse than an already-found alternative, it gets cut without evaluation. In practice this lets the engine search far deeper than plain minimax for the same compute budget.
+**Alpha-beta pruning** keeps track of two bounds, `alpha` (the best the maximizer is guaranteed) and `beta` (the best the minimizer is guaranteed). Once a branch is proven worse than something already found, it gets cut without ever being fully evaluated. In practice this lets the engine search a lot deeper than plain minimax would for the same amount of compute.
 
-The top-level `search()` generates pseudo-legal moves, simulates each one, verifies the moving side's king isn't left in check, then recurses at `depth - 1`. Moves are undone by reversing piece placement and restoring any captured piece — no copying the full board state.
+The top-level `search()` function generates pseudo-legal moves, simulates each one, checks that the moving side's king isn't left in check, and then recurses at `depth - 1`. Moves get undone by reversing the piece placement and restoring whatever was captured, so there's no need to copy the whole board.
 
 ### Evaluation
 
-Leaf nodes are scored by a static evaluation combining two things:
+Leaf nodes get scored by a static evaluation made up of two parts.
 
-**Material** — standard piece values: pawn 100, knight/bishop 300, rook 500, queen 900. The king is scored at 9,999,900 to make checkmate the overwhelming priority.
+**Material**: standard piece values, pawn 100, knight/bishop 300, rook 500, queen 900. The king is scored at 9,999,900 so checkmate always wins out over everything else.
 
-**Piece-square tables** — 8×8 bonus tables per piece type that reward positionally good squares. Knights are rewarded for the center, pawns for advancement, rooks for the 7th rank, and so on. These are hardcoded and apply on top of the material score.
+**Piece-square tables**: 8×8 bonus tables per piece type that reward good positioning. Knights get rewarded for sitting near the center, pawns for pushing forward, rooks for reaching the 7th rank, and so on. These are hardcoded and stack on top of the material score.
 
-Scores are from white's perspective: positive favors white, negative favors black. Checkmate is scored at ±9,999,900 adjusted by remaining depth so the engine always prefers faster mates.
+Scores are from white's perspective, positive favors white, negative favors black. Checkmate is scored at ±9,999,900 and adjusted by remaining depth, so the engine always goes for the faster mate.
 
 ## Known limitations
 
-The engine is a solid foundation but has a few intentional gaps:
+The engine works well as a foundation, but there are some gaps I left in on purpose:
 
-- No castling — king and rook move independently, castling rights aren't tracked
+- No castling: the king and rook move independently, and castling rights aren't tracked
 - No en passant
 - No threefold repetition or fifty-move rule detection
-- Promotions always queen — underpromotion isn't supported
-- Partial UCI — only the subset needed by the frontend is implemented
+- Promotions always become a queen, underpromotion isn't supported
+- Only a partial implementation of UCI, just the subset the frontend actually needs
 
-These are all tractable to add; they just weren't priorities for getting a playable engine shipped.
+All of these are doable to add later. They just weren't priorities for getting something playable out the door.
 
 ## Project structure
 

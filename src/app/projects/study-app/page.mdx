@@ -15,15 +15,15 @@ import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
 
 <MDXTitleWithLinks title="Tolari" links={{ githubLink: metadata.github, liveLink: metadata.live }} />
 
-A local-first desktop productivity app for students. No account, no sync, no server — everything lives on your machine. Built with [Wails](https://wails.io), which lets you write a Go backend and a React frontend that talk to each other through a generated bindings layer, compiled down to a single native binary.
+Tolari is a local-first desktop productivity app for students. No account, no sync, no server, everything just lives on your machine. I built it with [Wails](https://wails.io), which lets you write a Go backend and a React frontend that talk to each other through a generated bindings layer, and the whole thing compiles down to a single native binary.
 
-The premise is that three well-researched study techniques — spaced repetition, Kanban planning, and the Pomodoro technique — are most useful when they're part of the same workflow rather than three separate tools you switch between. Tolari puts them in one place.
+The idea behind it is that three well-researched study techniques, spaced repetition, Kanban planning, and the Pomodoro technique, work better together than as three separate tools you have to switch between. Tolari just puts them all in one place.
 
 ## Stack
 
-The backend is Go, exposed to the frontend via Wails bindings. The frontend is React with Vite. Flashcard data is stored in SQLite. Kanban state is persisted as structured data files on disk. The whole thing ships as a single executable — no installer needed on most platforms.
+The backend is Go, exposed to the frontend through Wails bindings. The frontend is React with Vite. Flashcard data lives in SQLite, and Kanban state gets persisted as structured data files on disk. It ships as a single executable, so there's no installer needed on most platforms.
 
-Wails works by embedding a WebView in a native window and injecting a JS bindings layer that maps directly to exported Go functions. From React's perspective, calling a Go function looks like calling an async JS function:
+Wails works by embedding a WebView inside a native window and injecting a JS bindings layer that maps directly to exported Go functions. From React's side, calling a Go function looks just like calling an async JS function:
 
 ```go
 // Go — exported to the frontend automatically by Wails
@@ -41,13 +41,13 @@ func (a *App) GetReviewCards() ([]Flashcard, error) {
 const cards = await GetReviewCards();
 ```
 
-No REST API, no HTTP, no serialization boilerplate. Wails handles the bridge.
+No REST API, no HTTP, no serialization boilerplate to write. Wails just handles the bridge for you.
 
 ## Spaced repetition flashcards
 
-The flashcard system is modelled after Anki — cards are reviewed on a schedule determined by how well you recalled them, not just how recently you studied them. The core idea is that memory decays predictably, and the optimal time to review something is just before you'd forget it. Reviewing too early wastes time; reviewing too late means relearning from scratch.
+The flashcard system is modeled after Anki. Cards get reviewed on a schedule based on how well you recalled them, not just how recently you studied them. The core idea is that memory decays in a fairly predictable way, and the best time to review something is right before you'd forget it. Review too early and you're wasting time. Review too late and you're basically relearning it from scratch.
 
-Each card has an interval (days until next review) and an ease factor (a multiplier that grows when you recall well and shrinks when you struggle). After each review you rate your recall, and the next interval is calculated:
+Each card has an interval (days until the next review) and an ease factor (a multiplier that grows when you recall well and shrinks when you struggle). After every review you rate how well you remembered it, and the next interval gets calculated like this:
 
 ```text
 FUNCTION review(flashcard, difficulty):
@@ -88,20 +88,20 @@ FUNCTION review(flashcard, difficulty):
 END FUNCTION
 ```
 
-Cards are stored in SQLite with their next due date. At startup, the app queries for all cards due today and surfaces them for review. Once you've cleared your due cards, you're done — no pressure to do more.
+Cards are stored in SQLite along with their next due date. When the app starts up, it queries for everything due that day and surfaces it for review. Once you've gotten through your due cards, you're done. There's no pressure to do more than that.
 
 ## Kanban board
 
-The Kanban board is for planning study sessions and tracking tasks across subjects. Columns represent stages (To Do, In Progress, Done) and cards move between them as work progresses.
+The Kanban board is for planning study sessions and tracking tasks across subjects. Columns represent stages (To Do, In Progress, Done), and cards move between them as work gets done.
 
-State is persisted as structured data files on disk rather than in SQLite. The board is its own file. The Go backend handles reads and writes, and the React frontend sends the full updated board state on every change rather than patching individual fields. Simple and easy to reason about.
+State here is saved as structured data files on disk instead of going into SQLite. The board has its own file. The Go backend handles all the reads and writes, and the React frontend just sends the entire updated board state on every change instead of patching individual fields. It's simple, and easy to reason about.
 
 ## Pomodoro timer
 
-The Pomodoro timer is the glue between the other two features. The technique is straightforward: work in focused 25-minute blocks, take a short break, repeat. After four blocks take a longer break. The structure combats the tendency to study in unfocused marathon sessions.
+The Pomodoro timer is what ties the other two features together. The technique itself is simple: work in focused 25-minute blocks, take a short break, repeat. After four blocks you take a longer break. That structure helps fight the tendency to fall into unfocused marathon study sessions.
 
 ## Why local-first
 
-Most productivity apps want an account. That means your data lives on someone else's server, the app breaks without internet, and you're one subscription cancellation away from losing access. For a study tool used daily by students who might be on a school network, a plane, or just don't want to hand over an email address, local-first is the right default.
+Most productivity apps want you to make an account. That means your data sits on someone else's server, the app stops working without internet, and you're one canceled subscription away from losing access to everything. For a study tool that students use daily, often on a school network, on a plane, or just without wanting to hand over an email address, local-first felt like the right default.
 
-SQLite and flat files on disk means your data is yours — readable, backable-up, and not going anywhere.
+SQLite and flat files on disk mean your data is actually yours. You can read it, back it up, and it isn't going anywhere.
