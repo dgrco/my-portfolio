@@ -111,7 +111,7 @@ export default async function Home() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+                      className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 hover:scale-105 transition-all duration-200 cursor-default"
                     >
                       {tag}
                     </span>
@@ -137,7 +137,7 @@ export default async function Home() {
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="text-[13px] px-3 py-1 rounded-md border border-border text-foreground/80"
+                      className="text-[13px] px-3 py-1 rounded-md border border-border text-foreground/80 hover:border-foreground/30 hover:scale-105 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 cursor-default"
                     >
                       {item}
                     </span>
