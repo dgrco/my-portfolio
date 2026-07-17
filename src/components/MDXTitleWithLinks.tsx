@@ -13,7 +13,7 @@ export function MDXTitleWithLinks({ title, links = {} }: {
 }) {
   return (
     <div className="flex justify-between items-center">
-      <h1 className="text-3xl font-medium tracking-tight my-4">{title}</h1>
+      <h1 className="text-3xl font-medium tracking-tight my-4 leading-tight">{title}</h1>
       <div className="flex gap-4">
         {
           links.liveLink &&

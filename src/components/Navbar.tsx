@@ -25,7 +25,7 @@ export default function Navbar() {
 
         <Link
           href="/"
-          className="text-[14px] font-medium tracking-tight hover:text-muted-foreground transition-colors"
+          className="text-[15px] font-medium tracking-tight hover:text-muted-foreground transition-colors"
         >
           dgrco.dev
         </Link>
@@ -44,7 +44,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-[13px] px-3 py-1.5 rounded-md transition-colors ${
+                  className={`text-[14px] px-3 py-1.5 rounded-md transition-colors ${
                     isActive
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"

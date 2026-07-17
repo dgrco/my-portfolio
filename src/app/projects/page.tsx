@@ -13,7 +13,7 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-3xl mx-auto px-5 py-12 sm:py-20">
+      <div className="max-w-2xl mx-auto px-5 py-12 sm:py-20">
 
         {/* Header */}
         <div className="mb-10">
@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
           <h1 className="text-3xl sm:text-4xl font-medium tracking-tight mb-3 text-foreground">
             Projects
           </h1>
-          <p className="text-[15px] text-muted-foreground leading-relaxed">
+          <p className="text-[16px] text-muted-foreground leading-relaxed">
             Things I've built — click any card for the full writeup.
           </p>
         </div>
@@ -41,12 +41,12 @@ export default async function ProjectsPage() {
                 className="block p-5 pr-24"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-[15px] font-medium text-foreground group-hover:text-foreground/80 transition-colors">
+                  <h2 className="text-[16px] font-bold text-foreground group-hover:text-foreground/80 transition-colors">
                     {project.title}
                   </h2>
                   <div className="flex items-center gap-2 shrink-0">
                     {project.status === "In progress" && (
-                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-foreground/10 text-foreground/70">
+                      <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-foreground/10 text-foreground/70">
                         In progress
                       </span>
                     )}
@@ -55,14 +55,14 @@ export default async function ProjectsPage() {
                     )}
                   </div>
                 </div>
-                <p className="text-[13px] text-muted-foreground leading-relaxed mb-3">
+                <p className="text-[15px] text-muted-foreground leading-relaxed mb-3">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+                      className="text-[12px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
                     >
                       {tag}
                     </span>
