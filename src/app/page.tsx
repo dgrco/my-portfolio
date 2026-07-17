@@ -20,35 +20,35 @@ export default async function Home() {
 
         {/* Hero */}
         <section className="pb-16 sm:pb-20">
-          <div className="flex items-center gap-8 sm:gap-16 animate-fade-in-up animate-stagger-1">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-16 animate-fade-in-up animate-stagger-1">
             <div className="shrink-0">
               <Image
                 src="/avatar.png"
                 alt="Dante Grieco"
                 width={200}
                 height={200}
-                className="rounded-full border border-border"
+                className="w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] rounded-full border border-border"
                 style={{ imageRendering: 'pixelated' }}
               />
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 text-center sm:text-left">
               <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3 animate-fade-in-up animate-stagger-2">
                 Software engineer
               </p>
-              <h1 className="text-3xl sm:text-5xl font-medium tracking-tight mb-4 text-foreground animate-fade-in-up animate-stagger-3">
+              <h1 className="text-2xl sm:text-5xl font-medium tracking-tight mb-4 text-foreground animate-fade-in-up animate-stagger-3">
                 Dante Grieco
               </h1>
-              <p className="text-[16px] sm:text-[17px] text-muted-foreground leading-relaxed max-w-xl mb-6 animate-fade-in-up animate-stagger-4">
+              <p className="text-[14px] sm:text-[17px] text-muted-foreground leading-relaxed max-w-xl mb-6 animate-fade-in-up animate-stagger-4">
                 CS graduate building things that matter. Currently developing a
                 scheduling SaaS from the ground up: product, engineering, and
                 everything in between. I like systems that are fast, simple, and
                 useful.
               </p>
-              <div className="flex flex-wrap gap-3 animate-fade-in-up animate-stagger-5">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-3 animate-fade-in-up animate-stagger-5">
                 <Link
                   href="https://github.com/dgrco"
                   target="_blank"
-                  className="inline-flex items-center gap-2 text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
+                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
                 >
                   <GitHubIcon size={16} />
                   GitHub
@@ -56,14 +56,14 @@ export default async function Home() {
                 <Link
                   href="https://linkedin.com/in/dantegrieco"
                   target="_blank"
-                  className="inline-flex items-center gap-2 text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
+                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
                 >
                   <LinkedInIcon size={16} />
                   LinkedIn
                 </Link>
                 <Link
                   href="mailto:dantegrieco11@gmail.com"
-                  className="inline-flex items-center gap-2 text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
+                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
                 >
                   <Mail size={16} />
                   Email

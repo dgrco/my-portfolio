@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Metadata } from "next";
 import { getProjects } from "@/lib/projects";
 import { GitHubIcon } from "@/components/SocialIcons";
@@ -13,7 +13,6 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-5 py-12 sm:py-20">
 
         {/* Header */}
         <div className="mb-10">
@@ -39,7 +38,7 @@ export default async function ProjectsPage() {
               {/* Clickable area for writeup */}
               <Link
                 href={`/projects/${project.slug}`}
-                className="block p-5 pr-24"
+                className="block p-5 pr-5 sm:pr-24"
               >
                 <div className="flex items-center justify-between mb-2">
                   <h2 className="text-[16px] font-bold text-foreground group-hover:text-foreground/80 transition-colors">
@@ -69,10 +68,11 @@ export default async function ProjectsPage() {
                     </span>
                   ))}
                 </div>
+
               </Link>
 
-              {/* Icon links */}
-              <div className="absolute top-5 right-4 flex items-center gap-2">
+              {/* Icon links - desktop only */}
+              <div className="hidden sm:flex sm:absolute sm:top-5 sm:right-4 items-center gap-2">
                 {project.live && (
                   <a
                     href={project.live}
@@ -89,16 +89,10 @@ export default async function ProjectsPage() {
                 >
                   <GitHubIcon size={15} />
                 </a>
-                <ArrowUpRight
-                  size={15}
-                  className="text-muted-foreground/40 group-hover:text-muted-foreground transition-colors"
-                />
               </div>
             </div>
           ))}
         </div>
-
-      </div>
     </main>
   );
 }

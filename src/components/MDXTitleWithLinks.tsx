@@ -1,7 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import { GitHubIcon } from "@/components/SocialIcons";
 
-// Common links among all blogs; all optional
 type Links = {
   githubLink?: string,
   liveLink?: string,
@@ -12,29 +11,31 @@ export function MDXTitleWithLinks({ title, links = {} }: {
   links: Links,
 }) {
   return (
-    <div className="flex justify-between items-center">
-      <h1 className="text-3xl font-medium tracking-tight my-4 leading-tight">{title}</h1>
-      <div className="flex gap-4">
-        {
-          links.liveLink &&
-          <a
-            href={links.liveLink}
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Check out the project live"
-          >
-            <ExternalLink size={20} />
-          </a>
-        }
-        {
-          links.githubLink &&
-          <a
-            href={links.githubLink}
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="View source on GitHub"
-          >
-            <GitHubIcon size={20} />
-          </a>
-        }
+    <div className="mb-8">
+      <div className="flex items-start justify-between gap-4">
+        <h1 className="text-2xl sm:text-3xl font-medium tracking-tight leading-tight">{title}</h1>
+        <div className="flex gap-2 shrink-0">
+          {links.liveLink && (
+            <a
+              href={links.liveLink}
+              target="_blank"
+              className="inline-flex items-center gap-2 text-[14px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors text-foreground mt-1"
+            >
+              <ExternalLink size={14} />
+              <span>Live</span>
+            </a>
+          )}
+          {links.githubLink && (
+            <a
+              href={links.githubLink}
+              target="_blank"
+              className="inline-flex items-center gap-2 text-[14px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors text-foreground mt-1"
+            >
+              <GitHubIcon size={14} />
+              <span>GitHub</span>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   )

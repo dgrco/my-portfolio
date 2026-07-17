@@ -4,10 +4,10 @@ import Link from 'next/link'
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-3xl font-medium tracking-tight mb-4 mt-0 leading-tight">{children}</h1>
+      <h1 className="text-2xl sm:text-3xl font-medium tracking-tight mb-4 mt-0 leading-tight">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl font-medium tracking-tight mt-10 mb-3">{children}</h2>
+      <h2 className="text-xl sm:text-2xl font-medium tracking-tight mt-10 mb-3">{children}</h2>
     ),
     h3: ({ children }) => (
       <h3 className="text-lg font-medium mt-6 mb-2">{children}</h3>
@@ -28,7 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     li: ({ children }) => <li>{children}</li>,
     pre: ({ children, ...props }) => (
-        <pre className="rounded-lg max-w-full overflow-x-auto text-[15px] mb-4 py-4 px-4 bg-muted" {...props}>
+        <pre className="rounded-lg max-w-full overflow-x-auto text-[13px] mb-4 py-4 px-4 bg-muted" {...props}>
         {children}
       </pre>
     ),

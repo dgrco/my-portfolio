@@ -16,7 +16,6 @@ export default function Navbar() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch — only render theme toggle after mount
   useEffect(() => setMounted(true), []);
 
   return (
@@ -33,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center gap-1">
 
           {/* Nav links */}
-          <nav className="flex items-center mr-2 gap-1">
+          <nav className="flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
@@ -44,7 +43,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-[14px] px-3 py-1.5 rounded-md transition-colors ${
+                  className={`text-[14px] sm:px-3 sm:py-1.5 px-2 py-1 rounded-md transition-colors ${
                     isActive
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
