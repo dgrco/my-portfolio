@@ -35,10 +35,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     code: ({ children, className }) => {
       const isBlock = className?.includes('language-')
       return isBlock ? (
-        <code className={className}>{children}</code>
+        <code className={`${className} font-mono text-[14px]`}>{children}</code>
       ) : (
         <code
-          className="text-[15px] font-mono bg-muted px-1.5 py-0.5 rounded text-foreground"
+          className="text-[17px] font-serif bg-muted px-1.5 py-0.5 rounded text-foreground"
           style={{ overflowWrap: 'anywhere' }}
         >
           {children}

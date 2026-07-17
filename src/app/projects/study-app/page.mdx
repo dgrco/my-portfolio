@@ -61,11 +61,13 @@ FUNCTION review(flashcard, difficulty):
     
   // If response was correct (difficulty >= 3)
   ELSE
-    // Calculate new Easiness Factor (EF) -> from the SM2 algorithm
+    // Calculate new Easiness Factor (EF) -> from the SM2 
+    // algorithm
     flashcard.easiness = flashcard.easiness + 0.1 - 
       (5 - difficulty) * (0.08 + (5 - difficulty) * 0.02)
     
-    // Keep Easiness Factor from dropping below the minimum threshold of 1.3
+    // Keep Easiness Factor from dropping 
+    // below the minimum threshold of 1.3
     IF flashcard.easiness < 1.3 THEN
       flashcard.easiness = 1.3
     END IF
@@ -79,12 +81,16 @@ FUNCTION review(flashcard, difficulty):
       CASE 2:
         flashcard.interval = 6
       DEFAULT:
-        flashcard.interval = ROUND(flashcard.interval * flashcard.easiness)
+        flashcard.interval = ROUND(
+          flashcard.interval * flashcard.easiness
+        )
     END CHOOSE
   END IF
 
   // Calculate and save the next review date
-  flashcard.review_date = SERIALIZE_DATE(current_time + flashcard.interval DAYS)
+  flashcard.review_date = SERIALIZE_DATE(
+    current_time + flashcard.interval DAYS
+  )
 END FUNCTION
 ```
 
