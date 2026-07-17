@@ -112,7 +112,7 @@ export default async function Home() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[12px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 hover:scale-105 transition-all duration-200 cursor-default"
+                      className="text-[12px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
                     >
                       {tag}
                     </span>
