@@ -24,12 +24,12 @@ export default function Navbar() {
 
         <Link
           href="/"
-          className="text-[15px] font-medium tracking-tight hover:text-muted-foreground transition-colors"
+          className="text-lg font-semibold tracking-tight text-foreground font-serif hover:text-muted-foreground transition-colors leading-none"
         >
-          dgrco.dev
+          Dante Grieco
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-3">
 
           {/* Nav links */}
           <nav className="flex items-center gap-1">
@@ -43,7 +43,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-[14px] sm:px-3 sm:py-1.5 px-2 py-1 rounded-md transition-colors ${
+                          className={`text-[14px] sm:px-3 sm:py-1.5 px-2 py-1 rounded-md transition-colors ${
                     isActive
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
