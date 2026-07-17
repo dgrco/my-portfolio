@@ -20,14 +20,14 @@ export default async function Home() {
 
         {/* Hero */}
         <section className="pb-16 sm:pb-20">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-16 animate-fade-in-up animate-stagger-1">
-            <div className="shrink-0">
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-16 animate-fade-in-up animate-stagger-1">
+            <div className="flex shrink-0">
               <Image
                 src="/avatar.png"
                 alt="Dante Grieco"
                 width={200}
                 height={200}
-                className="w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] rounded-full border border-border"
+                className="w-[110px] h-[110px] sm:w-[200px] sm:h-[200px] rounded-full border border-border"
                 style={{ imageRendering: 'pixelated' }}
               />
             </div>
