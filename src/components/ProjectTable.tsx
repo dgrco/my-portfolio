@@ -12,7 +12,7 @@ export function ProjectTable({ rows }: { rows: [string, string][] }) {
           {rows.map(([file, responsibility]) => (
             <tr key={file} className="border-b border-border last:border-0">
               <td className="px-4 py-2.5">
-                <code className="text-[14px] bg-muted px-1.5 py-0.5 rounded">{file}</code>
+                <code className="text-[14px] bg-muted px-1.5 py-0.5 rounded text-amber-800 dark:text-blue-300">{file}</code>
               </td>
               <td className="px-4 py-2.5 text-muted-foreground">
                 {responsibility}

@@ -28,17 +28,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     li: ({ children }) => <li>{children}</li>,
     pre: ({ children, ...props }) => (
-        <pre className="rounded-lg max-w-full overflow-x-auto text-[13px] mb-4 py-4 px-4 bg-muted" {...props}>
+        <pre className="rounded-lg max-w-full overflow-x-auto text-[13px] mb-4 py-4 px-4 bg-muted text-amber-900 dark:text-blue-300" {...props}>
         {children}
       </pre>
     ),
     code: ({ children, className }) => {
       const isBlock = className?.includes('language-')
       return isBlock ? (
-        <code className={`${className} font-mono text-[14px]`}>{children}</code>
+        <code className={`${className} font-mono text-[14px] text-amber-900 dark:text-blue-300`}>{children}</code>
       ) : (
         <code
-          className="text-[17px] font-serif bg-muted px-1.5 py-0.5 rounded text-foreground"
+          className="text-[17px] font-serif bg-muted px-1.5 py-0.5 rounded text-amber-900 dark:text-blue-300"
           style={{ overflowWrap: 'anywhere' }}
         >
           {children}
