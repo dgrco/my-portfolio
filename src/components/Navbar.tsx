@@ -33,7 +33,7 @@ export default function Navbar() {
         <div className="flex items-center gap-1">
 
           {/* Nav links */}
-          <nav className="flex items-center mr-2">
+          <nav className="flex items-center mr-2 gap-1">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
