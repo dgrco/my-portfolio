@@ -20,7 +20,7 @@ export default async function Home() {
 
         {/* Hero */}
         <section className="pb-16 sm:pb-20">
-          <div className="flex items-center gap-8 sm:gap-16">
+          <div className="flex items-center gap-8 sm:gap-16 animate-fade-in-up animate-stagger-1">
             <div className="shrink-0">
               <Image
                 src="/avatar.png"
@@ -32,19 +32,19 @@ export default async function Home() {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3">
+              <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3 animate-fade-in-up animate-stagger-2">
                 Software engineer
               </p>
-              <h1 className="text-3xl sm:text-5xl font-medium tracking-tight mb-4 text-foreground">
+              <h1 className="text-3xl sm:text-5xl font-medium tracking-tight mb-4 text-foreground animate-fade-in-up animate-stagger-3">
                 Dante Grieco
               </h1>
-              <p className="text-[16px] sm:text-[17px] text-muted-foreground leading-relaxed max-w-xl mb-6">
+              <p className="text-[16px] sm:text-[17px] text-muted-foreground leading-relaxed max-w-xl mb-6 animate-fade-in-up animate-stagger-4">
                 CS graduate building things that matter. Currently developing a
                 scheduling SaaS from the ground up: product, engineering, and
                 everything in between. I like systems that are fast, simple, and
                 useful.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 animate-fade-in-up animate-stagger-5">
                 <Link
                   href="https://github.com/dgrco"
                   target="_blank"
@@ -73,11 +73,11 @@ export default async function Home() {
           </div>
         </section>
 
-        <Separator className="mb-10" />
+        <Separator className="mb-10 animate-fade-in animate-stagger-5" />
 
         {/* Featured Projects */}
         <section className="pb-16 sm:pb-20">
-          <div className="flex items-baseline justify-between mb-6">
+          <div className="flex items-baseline justify-between mb-6 animate-fade-in-up animate-stagger-6">
             <p className="text-[12px] font-medium tracking-widest text-muted-foreground uppercase">
               Featured work
             </p>
@@ -90,11 +90,12 @@ export default async function Home() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group rounded-lg border border-border p-5 hover:bg-muted/40 transition-colors"
+                className="group rounded-lg border border-border p-5 hover:bg-muted/40 transition-colors animate-fade-in-up"
+                style={{ animationDelay: `${0.1 + index * 0.08}s` }}
               >
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-[16px] font-bold text-foreground group-hover:text-foreground/80 transition-colors">
@@ -122,16 +123,16 @@ export default async function Home() {
           </div>
         </section>
 
-        <Separator className="mb-10" />
+        <Separator className="mb-10 animate-fade-in animate-stagger-6" />
 
         {/* Skills */}
         <section className="pb-12">
-          <p className="text-[12px] font-medium tracking-widest text-muted-foreground uppercase mb-6">
+          <p className="text-[12px] font-medium tracking-widest text-muted-foreground uppercase mb-6 animate-fade-in-up animate-stagger-7">
             Skills
           </p>
           <div className="grid gap-8 sm:grid-cols-2">
-            {skills.map((group) => (
-              <div key={group.category}>
+            {skills.map((group, groupIndex) => (
+              <div key={group.category} className="animate-fade-in-up" style={{ animationDelay: `${0.15 + groupIndex * 0.08}s` }}>
                 <h3 className="text-[14px] font-medium text-foreground mb-3">{group.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (

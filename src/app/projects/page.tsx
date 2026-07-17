@@ -17,23 +17,24 @@ export default async function ProjectsPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3">
+          <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3 animate-fade-in-up animate-stagger-1">
             Work
           </p>
-          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight mb-3 text-foreground">
+          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight mb-3 text-foreground animate-fade-in-up animate-stagger-2">
             Projects
           </h1>
-          <p className="text-[16px] text-muted-foreground leading-relaxed">
+          <p className="text-[16px] text-muted-foreground leading-relaxed animate-fade-in-up animate-stagger-3">
             Things I've built — click any card for the full writeup.
           </p>
         </div>
 
         {/* Projects */}
         <div className="flex flex-col gap-4">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.slug}
-              className="group relative rounded-lg border border-border bg-card hover:bg-muted/40 transition-colors"
+              className="group relative rounded-lg border border-border bg-card hover:bg-muted/40 transition-colors animate-fade-in-up"
+              style={{ animationDelay: `${0.1 + index * 0.06}s` }}
             >
               {/* Clickable area for writeup */}
               <Link
