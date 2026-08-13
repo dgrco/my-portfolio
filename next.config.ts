@@ -7,7 +7,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   output: 'export',
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx']
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default withMDX(nextConfig);
