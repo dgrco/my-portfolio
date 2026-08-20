@@ -1,0 +1,48 @@
+export const metadata = {
+  title: "QuikSlate",
+  shortDescription: "Employee scheduling SaaS for shift-based businesses",
+  description:
+    "A scheduling platform for businesses with hourly staff: restaurants, retail, anywhere shifts get built by hand in a spreadsheet today. Go backend, React frontend, built from the ground up as a real product, not just a side project.",
+  tags: ["Go", "PostgreSQL", "React", "TypeScript", "Docker"],
+  status: "In progress",
+  featured: true,
+  notable: true,
+}
+
+import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
+
+<MDXTitleWithLinks title="QuikSlate" links={{ githubLink: metadata.github }} />
+
+QuikSlate is employee scheduling software for businesses that run on shifts: restaurants, retail stores, anywhere a manager has to figure out who's working when. A lot of places still do this in a spreadsheet or a group text, which works until it doesn't. Someone forgets they're on the schedule, two people show up for the same shift, nobody covers a call-out. QuikSlate is my attempt at fixing that, and it's also the first time I've tried to build something as an actual product instead of a portfolio piece. Businesses, locations, positions, shifts, staff with roles, all of it wired up end to end.
+
+It's not finished. But it's close enough that the shape of the thing is settled, so here's how it's put together.
+
+## Stack
+
+The backend is Go, split into the usual layered structure: domain interfaces at the center, services that hold the business logic, handlers that deal with HTTP, and a Postgres repository implementation behind it all. Nothing in the service layer knows Postgres exists, it just talks to interfaces. That's paid off more than once already, mostly in testing, since the service and domain layers don't need a database to test against.
+
+The frontend is React and TypeScript on Vite, with Tailwind and shadcn/ui for components. The scheduling page itself, the actual calendar grid where you drag shifts around, is the hardest part of the frontend by a wide margin, so I deliberately built everything else first: auth, business setup, staff management, the design system. Save the hard problem for when the foundation underneath it is solid.
+
+## The data model
+
+Everything hangs off a simple hierarchy: a business has locations, a location has positions and shifts, and staff join a business and get assigned a role at each location they work. Roles stack from employee up through manager and location lead to business admin, and what you're allowed to do depends on where you sit in that stack relative to whoever you're acting on. A manager can edit a shift at their own location. They can't touch a different location, and they definitely can't touch another admin.
+
+That check happens in the service layer, not in middleware. Middleware's job stops at figuring out who's making the request, business ID, location ID, whether they're an admin. What they're actually allowed to do with that is a separate question, decided by the service handling the request. Keeping those two concerns apart made the authorization code a lot easier to reason about once there were four or five roles instead of two.
+
+## Auth
+
+Access tokens are short-lived JWTs, fifteen minutes, kept in memory on the frontend and never written to localStorage. Refresh tokens are opaque random strings, hashed before they hit the database, stored as an HttpOnly cookie the frontend can't touch directly. Every refresh rotates the token: the old one gets deleted and a new one issued in the same transaction, so a stolen refresh token is only good for one use before it's dead.
+
+The part I went back and forth on was what goes inside the JWT. Early on I stuffed role and business ID into the claims, since it meant fewer database lookups. The problem is that a JWT is only as fresh as the moment it was signed. Revoke someone's admin access and they'd keep acting as admin for up to fifteen minutes, right up until the token expired. So now the token carries only a user ID, and everything about who they are gets looked up fresh on every request. Slightly more database work, but a role change actually means something the second it happens instead of eventually.
+
+## Running it
+
+The whole thing runs under Docker Compose: Postgres starts, a one-shot migration container runs and exits, and only then does the API start. If a migration fails, the API never comes up, which beats the alternative of a server running against a half-migrated schema and nobody noticing until something breaks in a weird way.
+
+Containers run as a non-root user, drop capabilities they don't need, and the binary inside stays owned by root so the process running it can't rewrite itself even if something got into it. None of this is exotic, it's mostly just not skipping the defaults. Postgres also has two separate roles: one for migrations that can alter tables, one for the API that can only touch rows. If there's ever a SQL injection bug somewhere, that split is the difference between "leaked some data" and "an attacker just got table-altering access to the database."
+
+## What's left
+
+The scheduling core, businesses, locations, staff, roles, shifts, works end to end. What's between here and something I'd actually charge someone for is mostly the unglamorous stuff: a real deploy behind TLS, transactional email so invites and password resets don't rely on me copy-pasting a link, backups I've tested, and a shift coverage system so an employee who can't make it can hand the shift off instead of texting their manager and hoping.
+
+That last one is actually the stand-out of the whole product (besides performance and UX), not an afterthought. The scheduling core by itself is rather standard, plenty of tools already do that fine. Coverage, letting a shift get picked up by someone eligible without a manager having to broker every swap by hand, is the reason I think this is worth building instead of just using a spreadsheet.
