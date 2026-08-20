@@ -94,7 +94,11 @@ export default async function Home() {
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group rounded-lg border border-border p-5 hover:bg-muted/40 transition-colors animate-fade-in-up"
+                className={`group rounded-lg p-5 transition-colors animate-fade-in-up ${
+                  project.featured
+                    ? "sm:col-span-2 border border-primary/40 bg-primary/5 hover:bg-primary/10 ring-1 ring-primary/15"
+                    : "border border-border hover:bg-muted/40"
+                }`}
                 style={{ animationDelay: `${0.1 + index * 0.08}s` }}
               >
                 <div className="flex items-start justify-between mb-2">
@@ -102,7 +106,9 @@ export default async function Home() {
                     {project.title}
                   </h3>
                   {project.featured && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-foreground/60 shrink-0 mt-1.5" />
+                    <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-primary text-primary-foreground shrink-0">
+                      Featured
+                    </span>
                   )}
                 </div>
                 <p className="text-[15px] text-muted-foreground leading-relaxed mb-3 line-clamp-2">

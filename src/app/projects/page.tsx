@@ -32,7 +32,11 @@ export default async function ProjectsPage() {
           {projects.map((project, index) => (
             <div
               key={project.slug}
-              className="group relative rounded-lg border border-border bg-card hover:bg-muted/40 transition-colors animate-fade-in-up"
+              className={`group relative rounded-lg border transition-colors animate-fade-in-up ${
+                project.featured
+                  ? "border-primary/40 bg-primary/5 hover:bg-primary/10 ring-1 ring-primary/15"
+                  : "border-border bg-card hover:bg-muted/40"
+              }`}
               style={{ animationDelay: `${0.1 + index * 0.06}s` }}
             >
               {/* Clickable area for writeup */}
@@ -51,7 +55,9 @@ export default async function ProjectsPage() {
                       </span>
                     )}
                     {project.featured && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-foreground/60" />
+                      <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-primary text-primary-foreground">
+                        Featured
+                      </span>
                     )}
                   </div>
                 </div>
@@ -82,13 +88,15 @@ export default async function ProjectsPage() {
                     <ExternalLink size={15} />
                   </a>
                 )}
-                <a
-                  href={project.github}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label="View source on GitHub"
-                >
-                  <GitHubIcon size={15} />
-                </a>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="View source on GitHub"
+                  >
+                    <GitHubIcon size={15} />
+                  </a>
+                )}
               </div>
             </div>
           ))}

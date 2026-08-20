@@ -10,7 +10,8 @@ export type Project = {
   status: "Complete" | "In progress";
   featured: boolean; // standout project
   notable: boolean;
-  github: string;
+  date: string; // ISO date (YYYY-MM-DD) of most recent work, used for ordering
+  github?: string;
   live?: string;
 };
 
@@ -29,7 +30,7 @@ export async function getProjects(): Promise<Project[]> {
     })
   );
 
-  return projects;
+  return projects.sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export async function getNotableProjects(): Promise<Project[]> {
