@@ -118,7 +118,11 @@ export default async function Home() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[12px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+                      className={`text-[12px] px-2 py-0.5 rounded-full ${
+                        project.featured
+                          ? "bg-primary/10 text-foreground/80"
+                          : "bg-muted text-muted-foreground"
+                      }`}
                     >
                       {tag}
                     </span>
