@@ -7,7 +7,9 @@ npm run dev      # local
 npm run build    # static export into out/
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` to the deployed origin so link previews resolve their image.
+The site is https://dgrco.dev, which is the default origin link previews resolve
+their image against. Set `NEXT_PUBLIC_SITE_URL` to override it for a preview
+deploy.
 
 ## Adding a project
 

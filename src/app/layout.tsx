@@ -9,8 +9,9 @@ import Footer from "@/components/Footer";
 const source = Source_Serif_4({ subsets: ['latin'], variable: '--font-serif', display: 'swap' });
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono', display: 'swap' });
 
-// Link previews resolve their image against this, so it must be the real origin.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dgrco.github.io";
+// Link previews resolve their image against this, so it must be the real
+// origin. Overridable for preview deploys.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dgrco.dev";
 
 const description =
   "Software engineer. I build backends in Go and C, and write about how the things I make actually work.";
