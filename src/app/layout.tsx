@@ -46,10 +46,6 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("h-full", "antialiased", source.variable, jetBrainsMono.variable)}
-      /* Required by `scroll-behavior: smooth` below. Without it the router's
-         scroll-to-top animates, and it falls back to scrolling the first
-         element into view, landing partway down the page. */
-      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
