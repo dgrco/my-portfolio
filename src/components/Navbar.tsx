@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
 const navLinks = [
@@ -14,25 +13,19 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
-      <div className="max-w-2xl mx-auto px-5 h-14 flex items-center justify-between">
-
+    <header className="sticky top-0 z-50 w-full border-b border-rule bg-background/85 backdrop-blur-md">
+      <div className="measure h-16 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-foreground font-serif hover:text-muted-foreground transition-colors leading-none"
+          className="text-[18px] font-medium tracking-[-0.015em] text-foreground hover:text-muted-foreground transition-colors"
         >
           Dante Grieco
         </Link>
 
-        <div className="flex items-center gap-3">
-
-          {/* Nav links */}
-          <nav className="flex items-center gap-1">
+        <div className="flex items-center gap-6 sm:gap-7">
+          <nav className="flex items-center gap-6 sm:gap-7">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
@@ -43,10 +36,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                          className={`text-[14px] sm:px-3 sm:py-1.5 px-2 py-1 rounded-md transition-colors ${
+                  aria-current={isActive ? "page" : undefined}
+                  className={`text-[17px] transition-colors ${
                     isActive
-                      ? "text-foreground font-medium"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {link.label}
@@ -55,25 +49,19 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Dark mode toggle */}
           <button
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-            className="w-8 h-8 flex items-center justify-center rounded-md border border-border hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="w-8 h-8 -mr-1 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
-            {mounted ? (
-              resolvedTheme === "dark" ? (
-                <Sun size={14} />
-              ) : (
-                <Moon size={14} />
-              )
-            ) : (
-              <span className="w-[14px] h-[14px]" />
-            )}
+            {/*
+              Both icons render and CSS picks one off the html.dark class. The
+              alternative, choosing in JS, needs a mounted flag to survive
+              hydration and leaves the slot empty on first paint.
+            */}
+            <Moon size={16} className="dark:hidden" />
+            <Sun size={16} className="hidden dark:block" />
           </button>
-
         </div>
       </div>
     </header>

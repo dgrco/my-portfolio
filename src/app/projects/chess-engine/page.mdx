@@ -10,11 +10,12 @@ export const metadata = {
   date: "2026-03-22",
   github: "https://github.com/dgrco/ironpawn",
   live: "https://ironpawn.vercel.app",
+  cover: "/ironpawn-board.png",
+  coverAlt:
+    "A game in progress against IronPawn after 1.e4 e5 2.Nf3 d6 3.Bc4, with the bishop's move highlighted",
 }
 
-import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
-
-<MDXTitleWithLinks title="IronPawn" links={{ githubLink: metadata.github, liveLink: "https://ironpawn.vercel.app" }} />
+<ProjectHeader metadata={metadata} />
 
 I wrote this chess engine in C. It compiles to a native binary you can run through UCI, or to a `.wasm` module via Emscripten. You can play against it at [ironpawn.vercel.app](https://ironpawn.vercel.app), and you'll be playing as white.
 

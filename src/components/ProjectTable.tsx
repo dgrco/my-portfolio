@@ -1,20 +1,22 @@
 export function ProjectTable({ rows }: { rows: [string, string][] }) {
   return (
-    <div className="overflow-x-auto mb-6 rounded-lg border border-border">
-      <table className="w-full text-[15px] border-collapse">
+    <div className="overflow-x-auto mb-6 rounded-lg border border-rule">
+      <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th className="text-left text-[13px] font-medium tracking-widest uppercase text-muted-foreground px-4 py-2 border-b border-border">File</th>
-            <th className="text-left text-[13px] font-medium tracking-widest uppercase text-muted-foreground px-4 py-2 border-b border-border">Responsibility</th>
+            <th className="label text-left px-4 py-3 border-b border-rule">File</th>
+            <th className="label text-left px-4 py-3 border-b border-rule">Responsibility</th>
           </tr>
         </thead>
         <tbody>
           {rows.map(([file, responsibility]) => (
-            <tr key={file} className="border-b border-border last:border-0">
-              <td className="px-4 py-2.5">
-                <code className="text-[14px] bg-muted px-1.5 py-0.5 rounded text-amber-800 dark:text-blue-300">{file}</code>
+            <tr key={file} className="border-b border-rule last:border-0">
+              <td className="px-4 py-3 align-top">
+                <code className="font-mono text-[13px] bg-muted border border-rule px-1.5 py-0.5 rounded text-accent-ink whitespace-nowrap">
+                  {file}
+                </code>
               </td>
-              <td className="px-4 py-2.5 text-muted-foreground">
+              <td className="px-4 py-3 text-[15px] sm:text-[16px] text-foreground/75 align-top">
                 {responsibility}
               </td>
             </tr>

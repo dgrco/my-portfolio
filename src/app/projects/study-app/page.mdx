@@ -10,11 +10,12 @@ export const metadata = {
   date: "2026-01-14",
   github: "https://github.com/dgrco/TolariApp",
   live: "https://tolari.app",
+  cover: "/tolari-app.png",
+  coverAlt:
+    "Four Tolari views: a flashcard front, the answer with spaced-repetition recall grading, the Kanban planning board, and the pomodoro timer",
 }
 
-import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
-
-<MDXTitleWithLinks title="Tolari" links={{ githubLink: metadata.github, liveLink: metadata.live }} />
+<ProjectHeader metadata={metadata} />
 
 Tolari is a local-first desktop productivity app for students. No account, no sync, no server, everything just lives on your machine. I built it with [Wails](https://wails.io), which lets you write a Go backend and a React frontend that talk to each other through a generated bindings layer, and the whole thing compiles down to a single native binary.
 

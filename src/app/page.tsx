@@ -1,165 +1,117 @@
-import { Separator } from "@/components/ui/separator";
 import { getNotableProjects } from "@/lib/projects";
 import { Mail, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
+import { ProjectList } from "@/components/ProjectList";
+import { SectionHeading } from "@/components/SectionHeading";
 
-const skills = [
-  { category: "Languages", items: ["Golang", "C/C++", "TypeScript", "Rust", "Python"] },
-  { category: "Infrastructure", items: ["Docker", "Linux", "Postgres", "Redis", "Nginx"] },
-  { category: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "HTML/CSS"] },
-  { category: "Tools & Practices", items: ["Git", "CI/CD", "TDD", "REST APIs"] },
+/*
+ * Trimmed to things that actually distinguish anything. Git, HTML/CSS, TDD and
+ * "REST APIs" were dropped: every candidate lists them, so they cost a line
+ * and say nothing.
+ */
+const stack = [
+  { label: "Languages", items: ["Go", "C", "C++", "TypeScript", "Rust", "Python"] },
+  { label: "Systems", items: ["Postgres", "Redis", "Docker", "Nginx", "Linux"] },
+  { label: "Interfaces", items: ["React", "Next.js", "Tailwind"] },
+];
+
+const socials = [
+  { href: "https://github.com/dgrco", label: "GitHub", Icon: GitHubIcon },
+  { href: "https://linkedin.com/in/dantegrieco", label: "LinkedIn", Icon: LinkedInIcon },
+  { href: "mailto:dantegrieco11@gmail.com", label: "Email", Icon: Mail },
 ];
 
 export default async function Home() {
   const projects = await getNotableProjects();
+
   return (
-    <main className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-5 py-12 sm:py-20">
-
-        {/* Hero */}
-        <section className="pb-16 sm:pb-20">
-          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-16 animate-fade-in-up animate-stagger-1">
-            <div className="flex shrink-0">
-              <Image
-                src="/avatar.png"
-                alt="Dante Grieco"
-                width={200}
-                height={200}
-                className="w-[110px] h-[110px] sm:w-[200px] sm:h-[200px] rounded-full border border-border"
-                style={{ imageRendering: 'pixelated' }}
-              />
-            </div>
-            <div className="flex-1 min-w-0 text-center sm:text-left">
-              <p className="text-xs tracking-widest text-muted-foreground uppercase font-medium mb-3 animate-fade-in-up animate-stagger-2">
-                Software engineer
-              </p>
-              <h1 className="text-2xl sm:text-5xl font-medium tracking-tight mb-4 text-foreground animate-fade-in-up animate-stagger-3">
-                Dante Grieco
-              </h1>
-              <p className="text-[14px] sm:text-[17px] text-muted-foreground leading-relaxed max-w-xl mb-6 animate-fade-in-up animate-stagger-4">
-                CS graduate building things that matter. Currently developing a
-                scheduling SaaS from the ground up: product, engineering, and
-                everything in between. I like systems that are fast, simple, and
-                useful.
-              </p>
-              <div className="flex flex-wrap justify-center sm:justify-start gap-3 animate-fade-in-up animate-stagger-5">
-                <Link
-                  href="https://github.com/dgrco"
-                  target="_blank"
-                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
-                >
-                  <GitHubIcon size={16} />
-                  GitHub
-                </Link>
-                <Link
-                  href="https://linkedin.com/in/dantegrieco"
-                  target="_blank"
-                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
-                >
-                  <LinkedInIcon size={16} />
-                  LinkedIn
-                </Link>
-                <Link
-                  href="mailto:dantegrieco11@gmail.com"
-                  className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] px-4 py-2 rounded-md border border-border hover:bg-muted transition-colors text-foreground"
-                >
-                  <Mail size={16} />
-                  Email
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <Separator className="mb-10 animate-fade-in animate-stagger-5" />
-
-        {/* Featured Projects */}
-        <section className="pb-16 sm:pb-20">
-          <div className="flex items-baseline justify-between mb-6 animate-fade-in-up animate-stagger-6">
-            <p className="text-[12px] font-medium tracking-widest text-muted-foreground uppercase">
-              Featured work
-            </p>
+    <main className="measure py-14 sm:py-20">
+      {/* Hero */}
+      <section className="pb-14 sm:pb-16">
+        <Image
+          src="/avatar.png"
+          alt="Dante Grieco"
+          width={200}
+          height={200}
+          priority
+          className="w-[96px] h-[96px] rounded-full border border-rule mb-6 animate-fade-in animate-stagger-1"
+          style={{ imageRendering: "pixelated" }}
+        />
+        <p className="label mb-3.5 animate-fade-in-up animate-stagger-2">
+          Software engineer
+        </p>
+        <h1 className="text-[42px] sm:text-[56px] font-medium tracking-[-0.025em] leading-[1.05] mb-5 text-foreground animate-fade-in-up animate-stagger-3">
+          Dante Grieco
+        </h1>
+        <p className="text-[19px] sm:text-[20px] text-foreground/75 leading-[1.6] mb-7 animate-fade-in-up animate-stagger-4">
+          CS graduate building things that matter. Currently developing a
+          scheduling SaaS from the ground up: product, engineering, and
+          everything in between. I like systems that are fast, simple, and
+          useful.
+        </p>
+        <div className="flex flex-wrap gap-x-8 gap-y-3 animate-fade-in-up animate-stagger-5">
+          {socials.map(({ href, label, Icon }) => (
             <Link
-              href="/projects"
-              className="text-[14px] text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+              key={label}
+              href={href}
+              target={href.startsWith("mailto") ? undefined : "_blank"}
+              className="meta link-rule inline-flex items-center gap-2.5 text-foreground/85 hover:text-foreground"
             >
-              View all <ArrowRight size={13} />
+              <Icon size={15} />
+              {label}
             </Link>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {projects.map((project, index) => (
-              <Link
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                className={`group rounded-lg p-5 transition-colors animate-fade-in-up ${
-                  project.featured
-                    ? "sm:col-span-2 border border-primary/40 bg-primary/5 hover:bg-primary/10 ring-1 ring-primary/15"
-                    : "border border-border hover:bg-muted/40"
-                }`}
-                style={{ animationDelay: `${0.1 + index * 0.08}s` }}
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-[16px] font-bold text-foreground group-hover:text-foreground/80 transition-colors">
-                    {project.title}
-                  </h3>
-                  {project.featured && (
-                    <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-primary text-primary-foreground shrink-0">
-                      Featured
-                    </span>
-                  )}
-                </div>
-                <p className="text-[15px] text-muted-foreground leading-relaxed mb-3 line-clamp-2">
-                  {project.shortDescription}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className={`text-[12px] px-2 py-0.5 rounded-full ${
-                        project.featured
-                          ? "bg-primary/10 text-foreground/80"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+      {/* Selected work */}
+      <section className="pb-14 sm:pb-16">
+        <SectionHeading
+          title="Selected work"
+          action={{ href: "/projects", label: "All projects" }}
+        />
+        <ProjectList projects={projects} variant="compact" />
+      </section>
 
-        <Separator className="mb-10 animate-fade-in animate-stagger-6" />
+      {/* Stack */}
+      <section className="pb-14 sm:pb-16">
+        <SectionHeading title="What I build with" />
+        <dl className="border-t border-rule">
+          {stack.map((group, i) => (
+            <div
+              key={group.label}
+              className="flex flex-col sm:flex-row gap-1.5 sm:gap-10 py-4 border-b border-rule animate-fade-in-up"
+              style={{ animationDelay: `${0.1 + i * 0.07}s` }}
+            >
+              <dt className="label pt-1.5 sm:w-36 shrink-0">{group.label}</dt>
+              <dd className="text-[17px] text-foreground/85 leading-[1.6]">
+                {group.items.join(", ")}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
-        {/* Skills */}
-        <section className="pb-12">
-          <p className="text-[12px] font-medium tracking-widest text-muted-foreground uppercase mb-6 animate-fade-in-up animate-stagger-7">
-            Skills
-          </p>
-          <div className="grid gap-8 sm:grid-cols-2">
-            {skills.map((group, groupIndex) => (
-              <div key={group.category} className="animate-fade-in-up" style={{ animationDelay: `${0.15 + groupIndex * 0.08}s` }}>
-                <h3 className="text-[14px] font-medium text-foreground mb-3">{group.category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-[14px] px-3 py-1 rounded-md border border-border text-foreground/80 hover:border-foreground/30 hover:scale-105 transition-all duration-200 cursor-default"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-      </div>
+      {/* Contact */}
+      <section className="animate-fade-in-up animate-stagger-6">
+        <SectionHeading title="Get in touch" />
+        <p className="text-[19px] sm:text-[20px] text-foreground/75 leading-[1.6] mb-7">
+          Email is the fastest way to reach me. Happy to talk about anything
+          above, or anything you happen to be building.
+        </p>
+        <Link
+          href="mailto:dantegrieco11@gmail.com"
+          className="group inline-flex items-center gap-2.5 text-[18px] px-5 py-3 rounded-lg border border-border hover:border-foreground/25 hover:bg-muted/60 transition-colors text-foreground"
+        >
+          dantegrieco11@gmail.com
+          <ArrowRight
+            size={17}
+            className="text-muted-foreground group-hover:translate-x-0.5 transition-transform"
+          />
+        </Link>
+      </section>
     </main>
   );
 }

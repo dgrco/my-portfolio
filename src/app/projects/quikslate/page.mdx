@@ -8,11 +8,12 @@ export const metadata = {
   featured: true,
   notable: true,
   date: "2026-08-20",
+  cover: "/quikslate-schedule.png",
+  coverAlt:
+    "The QuikSlate week view: staff rows down the side, colour-coded shifts by position, weekly hours per person, and unassigned open shifts along the top",
 }
 
-import { MDXTitleWithLinks } from '@/components/MDXTitleWithLinks'
-
-<MDXTitleWithLinks title="QuikSlate" links={{ githubLink: metadata.github }} />
+<ProjectHeader metadata={metadata} />
 
 QuikSlate is employee scheduling software for businesses that run on shifts: restaurants, retail stores, anywhere a manager has to figure out who's working when. A lot of places still do this in a spreadsheet or a group text, which works until it doesn't. Someone forgets they're on the schedule, two people show up for the same shift, nobody covers a call-out. QuikSlate is my attempt at fixing that, and it's also the first time I've tried to build something as an actual product instead of a portfolio piece. Businesses, locations, positions, shifts, staff with roles, all of it wired up end to end.
 
