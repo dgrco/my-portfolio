@@ -22,10 +22,10 @@ export default async function Home() {
   const projects = await getNotableProjects();
 
   return (
-    <main className="measure py-14 sm:py-20">
+    <main className="measure py-14 sm:py-20 animate-fade-in-up">
       {/* Hero */}
       <section className="pb-14 sm:pb-16">
-        <div className="flex items-center gap-5 mb-7 animate-fade-in-up">
+        <div className="flex items-center gap-5 mb-7">
           <Image
             src="/avatar.png"
             alt="Dante Grieco"
@@ -37,16 +37,16 @@ export default async function Home() {
           />
           <p className="label">Software engineer</p>
         </div>
-        <h1 className="text-[42px] sm:text-[56px] font-medium tracking-[-0.025em] leading-[1.05] mb-5 text-foreground animate-fade-in-up">
+        <h1 className="text-[42px] sm:text-[56px] font-medium tracking-[-0.025em] leading-[1.05] mb-5 text-foreground">
           Dante Grieco
         </h1>
-        <p className="text-[19px] sm:text-[20px] text-foreground/75 leading-[1.6] mb-7 animate-fade-in-up">
+        <p className="text-[19px] sm:text-[20px] text-foreground/75 leading-[1.6] mb-7">
           CS graduate building things that matter. Currently developing a
           scheduling SaaS from the ground up: product, engineering, and
           everything in between. I like systems that are fast, simple, and
           useful.
         </p>
-        <div className="flex flex-wrap gap-x-8 gap-y-3 animate-fade-in-up">
+        <div className="flex flex-wrap gap-x-8 gap-y-3">
           {socials.map(({ href, label, Icon }) => (
             <Link
               key={label}
@@ -77,7 +77,7 @@ export default async function Home() {
           {stack.map((group) => (
             <div
               key={group.label}
-              className="flex flex-col sm:flex-row gap-1.5 sm:gap-10 py-4 border-b border-rule animate-fade-in-up"
+              className="flex flex-col sm:flex-row gap-1.5 sm:gap-10 py-4 border-b border-rule"
             >
               <dt className="label pt-1.5 sm:w-36 shrink-0">{group.label}</dt>
               <dd className="text-[17px] text-foreground/85 leading-[1.6]">
@@ -89,7 +89,7 @@ export default async function Home() {
       </section>
 
       {/* Contact */}
-      <section className="animate-fade-in-up">
+      <section>
         <SectionHeading title="Get in touch" />
         <p className="text-[19px] sm:text-[20px] text-foreground/75 leading-[1.6] mb-7">
           Email is the fastest way to reach me. Happy to talk about anything

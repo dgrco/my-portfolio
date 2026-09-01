@@ -33,7 +33,7 @@ function ProjectRow({
   const inProgress = project.status === "In progress";
 
   return (
-    <li className="group relative border-b border-rule animate-fade-in-up">
+    <li className="group relative border-b border-rule">
       <div className={`pb-6 sm:pb-7 ${project.cover ? "pt-10 sm:pt-12" : "pt-6 sm:pt-7"}`}>
         {project.cover && (
           <div className="mb-5 overflow-hidden rounded-lg border border-rule bg-muted/40">
