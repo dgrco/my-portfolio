@@ -23,7 +23,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ children }) => (
       <h3 className="text-[21px] font-medium tracking-[-0.01em] mt-9 mb-2.5">{children}</h3>
     ),
-    p: ({ children }) => <p className={`${PROSE} mb-5`}>{children}</p>,
+    // Matches the list spacing below. At mb-5 the gap was 0.66 line-heights,
+    // under every reference site measured (0.74 to 1.14); this lands at 0.80.
+    p: ({ children }) => <p className={`${PROSE} mb-6`}>{children}</p>,
     a: ({ href, children }) => (
       <Link
         href={href ?? ''}
