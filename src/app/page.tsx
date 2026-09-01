@@ -30,18 +30,25 @@ export default async function Home() {
     <main className="measure py-14 sm:py-20">
       {/* Hero */}
       <section className="pb-14 sm:pb-16">
-        <Image
-          src="/avatar.png"
-          alt="Dante Grieco"
-          width={200}
-          height={200}
-          priority
-          className="w-[96px] h-[96px] rounded-full border border-rule mb-6 animate-fade-in animate-stagger-1"
-          style={{ imageRendering: "pixelated" }}
-        />
-        <p className="label mb-3.5 animate-fade-in-up animate-stagger-2">
-          Software engineer
-        </p>
+        {/*
+          Avatar and role sit on one line. Stacked above the text the circle
+          read as floating: everything was flush to the same edge, but the eye
+          aligns on a circle's mass rather than the single point where it
+          touches the margin. Pairing it with the label gives the row a
+          baseline and leaves one unambiguous left edge for the whole hero.
+        */}
+        <div className="flex items-center gap-5 mb-7 animate-fade-in-up animate-stagger-1">
+          <Image
+            src="/avatar.png"
+            alt="Dante Grieco"
+            width={200}
+            height={200}
+            priority
+            className="w-[88px] h-[88px] sm:w-[104px] sm:h-[104px] shrink-0 rounded-full border border-rule"
+            style={{ imageRendering: "pixelated" }}
+          />
+          <p className="label">Software engineer</p>
+        </div>
         <h1 className="text-[42px] sm:text-[56px] font-medium tracking-[-0.025em] leading-[1.05] mb-5 text-foreground animate-fade-in-up animate-stagger-3">
           Dante Grieco
         </h1>
