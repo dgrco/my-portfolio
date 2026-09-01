@@ -15,13 +15,8 @@ export function ProjectList({
 }) {
   return (
     <ul className="border-t border-rule">
-      {projects.map((project, i) => (
-        <ProjectRow
-          key={project.slug}
-          project={project}
-          index={i}
-          variant={variant}
-        />
+      {projects.map((project) => (
+        <ProjectRow key={project.slug} project={project} variant={variant} />
       ))}
     </ul>
   );
@@ -29,21 +24,16 @@ export function ProjectList({
 
 function ProjectRow({
   project,
-  index,
   variant,
 }: {
   project: Project;
-  index: number;
   variant: Variant;
 }) {
   const isFull = variant === "full";
   const inProgress = project.status === "In progress";
 
   return (
-    <li
-      className="group relative border-b border-rule animate-fade-in-up"
-      style={{ animationDelay: `${0.03 + index * 0.035}s` }}
-    >
+    <li className="group relative border-b border-rule animate-fade-in-up">
       <div className={`pb-6 sm:pb-7 ${project.cover ? "pt-10 sm:pt-12" : "pt-6 sm:pt-7"}`}>
         {project.cover && (
           <div className="mb-5 overflow-hidden rounded-lg border border-rule bg-muted/40">

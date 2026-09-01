@@ -128,7 +128,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -145,22 +145,16 @@
   }
 }
 
+/* easeOutCubic. Steeper curves cover most of the distance in the first frames,
+   which reads as a jump rather than as motion. */
 .animate-fade-in-up {
-  animation: fadeInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeInUp 0.28s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeIn 0.28s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
-.animate-stagger-1 { animation-delay: 0.025s; }
-.animate-stagger-2 { animation-delay: 0.05s; }
-.animate-stagger-3 { animation-delay: 0.075s; }
-.animate-stagger-4 { animation-delay: 0.1s; }
-.animate-stagger-5 { animation-delay: 0.125s; }
-.animate-stagger-6 { animation-delay: 0.15s; }
-.animate-stagger-7 { animation-delay: 0.175s; }
-.animate-stagger-8 { animation-delay: 0.2s; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
