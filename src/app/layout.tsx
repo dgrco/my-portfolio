@@ -9,8 +9,7 @@ import Footer from "@/components/Footer";
 const source = Source_Serif_4({ subsets: ['latin'], variable: '--font-serif', display: 'swap' });
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono', display: 'swap' });
 
-// Set NEXT_PUBLIC_SITE_URL to the real deployed origin. Link previews resolve
-// their image against this, so a wrong value means no preview image at all.
+// Link previews resolve their image against this, so it must be the real origin.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dgrco.github.io";
 
 const description =
@@ -46,13 +45,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("h-full", "antialiased", source.variable, jetBrainsMono.variable)}
-      /*
-       * Required alongside `scroll-behavior: smooth`. The router only forces
-       * `scroll-behavior: auto` while it scrolls a new page to the top when
-       * this attribute is present; without it the reset animates, the router's
-       * follow-up check still sees the page off-screen, and it falls back to
-       * scrolling the first element into view, landing partway down.
-       */
+      /* Required by `scroll-behavior: smooth` below. Without it the router's
+         scroll-to-top animates, and it falls back to scrolling the first
+         element into view, landing partway down the page. */
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

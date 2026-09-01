@@ -8,7 +8,6 @@ const PROSE = 'text-[18px] text-foreground/75 leading-[1.78]'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // Available in every .mdx file without an import.
     Figure,
     ProjectHeader,
     ProjectTable,
@@ -16,15 +15,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: ({ children }) => (
       <h1 className="text-[38px] sm:text-[52px] font-medium tracking-[-0.025em] leading-[1.05] mb-6 mt-0">{children}</h1>
     ),
-    // The rule above is what separates sections, so h2 carries no extra weight.
     h2: ({ children }) => (
       <h2 className="text-[26px] sm:text-[30px] font-medium tracking-[-0.02em] mt-12 mb-4 pt-7 border-t border-rule">{children}</h2>
     ),
     h3: ({ children }) => (
       <h3 className="text-[21px] font-medium tracking-[-0.01em] mt-9 mb-2.5">{children}</h3>
     ),
-    // Matches the list spacing below. At mb-5 the gap was 0.66 line-heights,
-    // under every reference site measured (0.74 to 1.14); this lands at 0.80.
     p: ({ children }) => <p className={`${PROSE} mb-6`}>{children}</p>,
     a: ({ href, children }) => (
       <Link
@@ -60,8 +56,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return isBlock ? (
         <code className={`${className} font-mono`}>{children}</code>
       ) : (
-        // Accent is reserved for inline identifiers. Blocks stay neutral,
-        // since a fully tinted block reads as broken syntax highlighting.
         <code
           className="font-mono text-[0.86em] bg-muted border border-rule px-1.5 py-0.5 rounded text-accent-ink"
           style={{ overflowWrap: 'anywhere' }}

@@ -6,11 +6,6 @@ import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
 import { ProjectList } from "@/components/ProjectList";
 import { SectionHeading } from "@/components/SectionHeading";
 
-/*
- * Trimmed to things that actually distinguish anything. Git, HTML/CSS, TDD and
- * "REST APIs" were dropped: every candidate lists them, so they cost a line
- * and say nothing.
- */
 const stack = [
   { label: "Languages", items: ["Go", "C", "C++", "TypeScript", "Rust", "Python"] },
   { label: "Systems", items: ["Postgres", "Redis", "Docker", "Nginx", "Linux"] },
@@ -30,13 +25,6 @@ export default async function Home() {
     <main className="measure py-14 sm:py-20">
       {/* Hero */}
       <section className="pb-14 sm:pb-16">
-        {/*
-          Avatar and role sit on one line. Stacked above the text the circle
-          read as floating: everything was flush to the same edge, but the eye
-          aligns on a circle's mass rather than the single point where it
-          touches the margin. Pairing it with the label gives the row a
-          baseline and leaves one unambiguous left edge for the whole hero.
-        */}
         <div className="flex items-center gap-5 mb-7 animate-fade-in-up animate-stagger-1">
           <Image
             src="/avatar.png"
@@ -90,7 +78,7 @@ export default async function Home() {
             <div
               key={group.label}
               className="flex flex-col sm:flex-row gap-1.5 sm:gap-10 py-4 border-b border-rule animate-fade-in-up"
-              style={{ animationDelay: `${0.1 + i * 0.07}s` }}
+              style={{ animationDelay: `${0.03 + i * 0.035}s` }}
             >
               <dt className="label pt-1.5 sm:w-36 shrink-0">{group.label}</dt>
               <dd className="text-[17px] text-foreground/85 leading-[1.6]">

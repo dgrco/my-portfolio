@@ -4,11 +4,7 @@ import { GitHubIcon } from "@/components/SocialIcons";
 import { CoverImage } from "@/components/CoverImage";
 import { formatDate } from "@/lib/projects";
 
-/*
- * Loose on purpose. MDX files are not typechecked, so this mirrors the shape
- * they export rather than reusing Project (which also carries slug, derived
- * from the directory name at read time).
- */
+// Mirrors what the MDX files export; they are not typechecked.
 type ProjectMeta = {
   title: string;
   shortDescription: string;

@@ -1,11 +1,6 @@
 import Image from "next/image";
 
-/*
- * Image slot for writeups. Drop a file in /public and reference it by path.
- * Width and height are the intrinsic pixel size of the source and only set the
- * aspect ratio, since the image renders fluid and next/image is unoptimized
- * under the static export.
- */
+// width/height are the source's intrinsic size; they only set the aspect ratio.
 export function Figure({
   src,
   alt,

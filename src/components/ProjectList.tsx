@@ -42,21 +42,9 @@ function ProjectRow({
   return (
     <li
       className="group relative border-b border-rule animate-fade-in-up"
-      style={{ animationDelay: `${0.1 + index * 0.07}s` }}
+      style={{ animationDelay: `${0.03 + index * 0.035}s` }}
     >
-      {/* No hover fill. A tinted rectangle reads as a card and its corners sit
-          badly against the hairlines; the title colour and the arrow carry the
-          affordance on their own. */}
-      {/*
-        A covered row opens with the image, so it needs more space above than
-        below it. Matched padding leaves the image floating between two
-        entries and reading as the tail of the one before.
-      */}
       <div className={`pb-6 sm:pb-7 ${project.cover ? "pt-10 sm:pt-12" : "pt-6 sm:pt-7"}`}>
-        {/*
-          Covers are optional so they can be added one project at a time. The
-          row reads fine without one, it just carries less evidence.
-        */}
         {project.cover && (
           <div className="mb-5 overflow-hidden rounded-lg border border-rule bg-muted/40">
             <Image
@@ -70,11 +58,8 @@ function ProjectRow({
         )}
         <div className="flex items-baseline justify-between gap-5 mb-2">
           <h3 className="text-[24px] sm:text-[27px] font-medium tracking-[-0.015em] leading-tight text-foreground group-hover:text-accent-ink transition-colors">
-            {/*
-              Only the title is a real link. The pseudo-element stretches it
-              over the whole row so the row is clickable without nesting the
-              Live and Source anchors inside another anchor.
-            */}
+            {/* Overlay makes the row clickable without nesting the Live and
+                Source anchors inside another anchor. */}
             <Link
               href={`/projects/${project.slug}`}
               className="after:absolute after:inset-0 decoration-accent-ink/40 underline-offset-[6px] group-hover:underline"
@@ -95,11 +80,6 @@ function ProjectRow({
           {isFull ? project.description : project.shortDescription}
         </p>
 
-        {/*
-          Completed is the default state of a finished writeup, so only work
-          still underway is labelled. It leads the tag line rather than sitting
-          in a badge of its own.
-        */}
         <p className="meta">
           {inProgress && <span className="text-accent-ink">In progress&nbsp;·&nbsp;</span>}
           <span className="text-muted-foreground/85">

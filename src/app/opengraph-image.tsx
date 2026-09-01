@@ -7,7 +7,6 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Dante Grieco, software engineer";
 
-// Rendered once at build time, so it ships as a static PNG with the export.
 export default function OpengraphImage() {
   return new ImageResponse(
     (

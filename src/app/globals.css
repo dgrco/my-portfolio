@@ -69,9 +69,7 @@
   --destructive: oklch(0.52 0.18 22);
   --border: oklch(0.87 0.012 95);
   --input: oklch(0.87 0.012 95);
-  /* Signature warm accent. Used for code, link marks, and the featured project. */
   --accent-ink: oklch(0.5 0.12 48);
-  /* Hairline divider, lighter than --border since it carries most of the layout. */
   --rule: oklch(0.885 0.01 95);
   --ring: oklch(0.35 0.03 85);
   --chart-1: oklch(0.65 0.04 85);
@@ -130,7 +128,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -148,21 +146,21 @@
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.35s ease-out both;
+  animation: fadeInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.35s ease-out both;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.animate-stagger-1 { animation-delay: 0.05s; }
-.animate-stagger-2 { animation-delay: 0.1s; }
-.animate-stagger-3 { animation-delay: 0.15s; }
-.animate-stagger-4 { animation-delay: 0.2s; }
-.animate-stagger-5 { animation-delay: 0.25s; }
-.animate-stagger-6 { animation-delay: 0.3s; }
-.animate-stagger-7 { animation-delay: 0.35s; }
-.animate-stagger-8 { animation-delay: 0.4s; }
+.animate-stagger-1 { animation-delay: 0.025s; }
+.animate-stagger-2 { animation-delay: 0.05s; }
+.animate-stagger-3 { animation-delay: 0.075s; }
+.animate-stagger-4 { animation-delay: 0.1s; }
+.animate-stagger-5 { animation-delay: 0.125s; }
+.animate-stagger-6 { animation-delay: 0.15s; }
+.animate-stagger-7 { animation-delay: 0.175s; }
+.animate-stagger-8 { animation-delay: 0.2s; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
@@ -182,8 +180,8 @@
     @apply font-serif;
     font-size: 15px;
     scroll-behavior: smooth;
-    /* Keeps anchor targets clear of the sticky navbar. The router reads this
-       too when deciding whether a newly loaded page is already in view. */
+    /* Clears the sticky navbar. The router reads this when deciding whether a
+       newly loaded page is already in view. */
     scroll-padding-top: 5.5rem;
   }
   @media (min-width: 640px) {
@@ -192,7 +190,6 @@
     }
   }
 
-  /* Headings rag badly at large sizes when the last line holds one word. */
   h1, h2, h3 {
     text-wrap: balance;
   }
@@ -212,11 +209,7 @@
 }
 
 @layer components {
-  /*
-   * The one column the whole site sits in. Navbar, page content and footer all
-   * use it, so every left edge on every page lands on the same line. 40rem is
-   * about 68 characters at the body size, which is the readable measure.
-   */
+  /* Navbar, page content and footer all use this, so every left edge aligns. */
   .measure {
     width: 100%;
     max-width: 40rem;
@@ -224,12 +217,6 @@
     padding-inline: 1.25rem;
   }
 
-  /*
-   * Everything on the site is Source Serif. Hierarchy comes from size, weight,
-   * case and colour rather than from swapping typeface, since the mono has a
-   * noticeably smaller x-height and reads as a seam wherever the two meet.
-   * Mono is left to code, which is the one place a different shape helps.
-   */
   .label {
     font-size: 13px;
     font-weight: 600;
@@ -239,10 +226,6 @@
     color: var(--muted-foreground);
   }
 
-  /*
-   * Oldstyle figures sit on the baseline with ascenders and descenders, so
-   * dates set in a serif read as text rather than as tabular data.
-   */
   .meta {
     font-size: 15px;
     line-height: 1.6;
@@ -250,21 +233,13 @@
     font-variant-numeric: oldstyle-nums;
   }
 
-  /*
-   * The writeup's hero image, and only that, runs a little past the reading
-   * column. Measured against real sites at 1440px, media almost always matches
-   * the text column exactly (joshwcomeau, Tailwind's blog) and Linear's blog is
-   * the outlier at 1.15x. This sits at that ceiling, on an article page where a
-   * wide hero is conventional. List covers stay aligned, since a thumbnail
-   * overhanging its own title just reads as a mistake.
-   */
+  /* Writeup hero only. List covers stay aligned to the text. */
   @media (min-width: 1024px) {
     .hero-bleed {
       margin-inline: -3rem;
     }
   }
 
-  /* Underline that sits clear of the baseline and firms up on hover. */
   .link-rule {
     text-decoration: underline;
     text-decoration-color: color-mix(in oklab, currentColor 28%, transparent);

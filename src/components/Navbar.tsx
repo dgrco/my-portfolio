@@ -54,11 +54,7 @@ export default function Navbar() {
             className="w-8 h-8 -mr-1 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
-            {/*
-              Both icons render and CSS picks one off the html.dark class. The
-              alternative, choosing in JS, needs a mounted flag to survive
-              hydration and leaves the slot empty on first paint.
-            */}
+            {/* CSS picks the icon so no mounted flag is needed for hydration. */}
             <Moon size={16} className="dark:hidden" />
             <Sun size={16} className="hidden dark:block" />
           </button>
