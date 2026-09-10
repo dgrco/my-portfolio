@@ -18,11 +18,46 @@ const socials = [
   { href: "mailto:dantegrieco11@gmail.com", label: "Email", Icon: Mail },
 ];
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dgrco.dev";
+
+// Without a WebSite/Person node Google falls back to the bare domain for the
+// site name in search results, i.e. "dgrco.dev" instead of "Dante Grieco".
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: "Dante Grieco",
+      alternateName: "dgrco",
+      publisher: { "@id": `${siteUrl}/#person` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: "Dante Grieco",
+      url: `${siteUrl}/`,
+      image: `${siteUrl}/avatar.png`,
+      jobTitle: "Software Engineer",
+      email: "mailto:dantegrieco11@gmail.com",
+      sameAs: [
+        "https://github.com/dgrco",
+        "https://linkedin.com/in/dantegrieco",
+      ],
+    },
+  ],
+};
+
 export default async function Home() {
   const projects = await getNotableProjects();
 
   return (
     <main className="measure py-14 sm:py-20 animate-fade-in-up">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Hero */}
       <section className="pb-14 sm:pb-16">
         <div className="flex items-center gap-5 mb-7">
