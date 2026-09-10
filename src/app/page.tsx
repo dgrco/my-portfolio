@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 
 const stack = [
   { label: "Languages", items: ["Go", "C", "C++", "TypeScript", "Rust", "Python"] },
-  { label: "Systems", items: ["Postgres", "Redis", "Docker", "Nginx", "Linux"] },
+  { label: "Systems", items: ["Postgres", "Git", "Docker", "Nginx", "Linux"] },
   { label: "Interfaces", items: ["React", "Next.js", "Tailwind"] },
 ];
 
