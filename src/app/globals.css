@@ -51,88 +51,87 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Palette shared with QuikSlate. Every neutral sits at hue 83-85 rather than
-   an achromatic gray: at these lightnesses a chroma below ~0.014 bleaches out
-   and the warmth stops reading. */
+/* Palette shared with QuikSlate's sage theme. The neutrals carry enough chroma
+   (0.006 to 0.016) at hue 150 to read as the brand green greyed out, where
+   near-zero chroma reads as stock grey. No surface reaches white. */
 :root {
-  --background: oklch(0.96 0.02 85);
-  --foreground: oklch(0.08 0.02 85);
-  --card: oklch(0.99 0.014 85);
-  --card-foreground: oklch(0.08 0.02 85);
-  --popover: oklch(0.99 0.014 85);
-  --popover-foreground: oklch(0.08 0.02 85);
-  --primary: oklch(0.517 0.119 147.3);
-  --primary-foreground: oklch(0.98 0.006 95);
-  --secondary: oklch(0.9 0.02 83);
-  --secondary-foreground: oklch(0.08 0.02 85);
-  --muted: oklch(0.9 0.02 83);
-  --muted-foreground: oklch(0.43 0.02 84);
-  --accent: oklch(0.885 0.022 83);
-  --accent-foreground: oklch(0.08 0.02 85);
+  --background: oklch(0.955 0.012 150);
+  --foreground: oklch(0.21 0.02 150);
+  --card: oklch(0.982 0.006 150);
+  --card-foreground: oklch(0.21 0.02 150);
+  --popover: oklch(0.982 0.006 150);
+  --popover-foreground: oklch(0.21 0.02 150);
+  --primary: oklch(0.51 0.122 147.5);
+  --primary-foreground: oklch(0.99 0.003 150);
+  --secondary: oklch(0.922 0.014 150);
+  --secondary-foreground: oklch(0.21 0.02 150);
+  --muted: oklch(0.922 0.014 150);
+  --muted-foreground: oklch(0.47 0.02 150);
+  --accent: oklch(0.902 0.016 150);
+  --accent-foreground: oklch(0.21 0.02 150);
   --destructive: oklch(0.45 0.15 24);
-  --border: oklch(0.87 0.02 83);
-  --input: oklch(0.87 0.02 83);
-  /* Amber, for links and focus. Hue 68 is inside the neutrals' own family, so
-     it reads as the ivory turned up rather than a second color in the room.
-     0.55 rather than the brighter amber you would pick off a swatch: at 0.70
-     it is 2.67:1 on --card, which fails for link text. */
+  --border: oklch(0.865 0.014 150);
+  --input: oklch(0.845 0.015 150);
+  /* Amber, for links and focus: QuikSlate's --emphasis. 0.55 rather than the
+     brighter amber you would pick off a swatch: at 0.70 it is 2.67:1 on
+     --card, which fails for link text. */
   --accent-ink: oklch(0.55 0.15 68);
-  --rule: oklch(0.885 0.02 83);
-  --ring: oklch(0.667 0.099 147.3);
-  --chart-1: oklch(0.65 0.04 85);
-  --chart-2: oklch(0.5 0.035 80);
-  --chart-3: oklch(0.4 0.03 75);
-  --chart-4: oklch(0.7 0.035 90);
-  --chart-5: oklch(0.55 0.025 88);
+  --rule: oklch(0.885 0.014 150);
+  --ring: oklch(0.667 0.099 147.5);
+  --chart-1: oklch(0.55 0.15 258);
+  --chart-2: oklch(0.64 0.15 42);
+  --chart-3: oklch(0.55 0.17 328);
+  --chart-4: oklch(0.61 0.10 200);
+  --chart-5: oklch(0.50 0.16 292);
   --radius: 0.625rem;
-  --sidebar: oklch(0.935 0.024 83);
-  --sidebar-foreground: oklch(0.08 0.02 85);
-  --sidebar-primary: oklch(0.517 0.119 147.3);
-  --sidebar-primary-foreground: oklch(0.98 0.006 95);
-  --sidebar-accent: oklch(0.885 0.022 83);
-  --sidebar-accent-foreground: oklch(0.08 0.02 85);
-  --sidebar-border: oklch(0.87 0.02 83);
-  --sidebar-ring: oklch(0.667 0.099 147.3);
+  --sidebar: oklch(0.942 0.013 150);
+  --sidebar-foreground: oklch(0.21 0.02 150);
+  --sidebar-primary: oklch(0.51 0.122 147.5);
+  --sidebar-primary-foreground: oklch(0.99 0.003 150);
+  --sidebar-accent: oklch(0.902 0.016 150);
+  --sidebar-accent-foreground: oklch(0.21 0.02 150);
+  --sidebar-border: oklch(0.865 0.014 150);
+  --sidebar-ring: oklch(0.667 0.099 147.5);
 }
 
 /* Derived from the light theme, not swapped for a stock dark one. Hues stay
-   put and only lightness moves, so the neutrals keep hue 85 and --primary
-   keeps 147.3, lifted until it clears its contrast floor on the dark card. */
+   put and only lightness moves, so the neutrals keep hue 150 and --primary
+   keeps 147.5, lifted until it clears its contrast floor on the dark card. */
 .dark {
-  --background: oklch(0.165 0.014 85);
-  --foreground: oklch(0.945 0.012 85);
-  --card: oklch(0.215 0.014 85);
-  --card-foreground: oklch(0.945 0.012 85);
-  --popover: oklch(0.215 0.014 85);
-  --popover-foreground: oklch(0.945 0.012 85);
-  --primary: oklch(0.72 0.115 147.3);
+  --background: oklch(0.17 0.008 150);
+  --foreground: oklch(0.94 0.006 150);
+  --card: oklch(0.215 0.009 150);
+  --card-foreground: oklch(0.94 0.006 150);
+  --popover: oklch(0.215 0.009 150);
+  --popover-foreground: oklch(0.94 0.006 150);
+  --primary: oklch(0.72 0.115 147.5);
   --primary-foreground: oklch(0.16 0.02 147);
-  --secondary: oklch(0.285 0.014 85);
-  --secondary-foreground: oklch(0.945 0.012 85);
-  --muted: oklch(0.285 0.014 85);
-  --muted-foreground: oklch(0.66 0.014 85);
-  --accent: oklch(0.305 0.015 85);
-  --accent-foreground: oklch(0.945 0.012 85);
+  --secondary: oklch(0.285 0.009 150);
+  --secondary-foreground: oklch(0.94 0.006 150);
+  --muted: oklch(0.285 0.009 150);
+  --muted-foreground: oklch(0.68 0.01 150);
+  --accent: oklch(0.305 0.01 150);
+  --accent-foreground: oklch(0.94 0.006 150);
   --destructive: oklch(0.68 0.17 24);
-  --border: oklch(0.32 0.013 85);
-  --input: oklch(0.36 0.014 85);
+  --border: oklch(0.32 0.009 150);
+  --input: oklch(0.36 0.01 150);
   --accent-ink: oklch(0.75 0.13 68);
-  --rule: oklch(0.29 0.013 85);
-  --ring: oklch(0.62 0.10 147.3);
-  --chart-1: oklch(0.72 0.025 88.26);
-  --chart-2: oklch(0.58 0.02 85);
-  --chart-3: oklch(0.48 0.018 80);
-  --chart-4: oklch(0.65 0.022 90);
-  --chart-5: oklch(0.55 0.015 88);
+  --rule: oklch(0.29 0.009 150);
+  --ring: oklch(0.62 0.10 147.5);
+  --chart-1: oklch(0.69 0.15 258);
+  --chart-2: oklch(0.74 0.14 42);
+  --chart-3: oklch(0.69 0.17 328);
+  --chart-4: oklch(0.75 0.10 200);
+  --chart-5: oklch(0.64 0.16 292);
   --radius: 0.625rem;
-  --sidebar: oklch(0.19 0.014 85);
-  --sidebar-foreground: oklch(0.945 0.012 85);
-  --sidebar-primary: oklch(0.72 0.115 147.3);
+  --sidebar: oklch(0.19 0.008 150);
+  --sidebar-foreground: oklch(0.94 0.006 150);
+  --sidebar-primary: oklch(0.72 0.115 147.5);
   --sidebar-primary-foreground: oklch(0.16 0.02 147);
-  --sidebar-accent: oklch(0.285 0.014 85);
-  --sidebar-accent-foreground: oklch(0.945 0.012 85);
-  --sidebar-border: oklch(0.28 0.013 85);
-  --sidebar-ring: oklch(0.62 0.10 147.3);
+  --sidebar-accent: oklch(0.285 0.009 150);
+  --sidebar-accent-foreground: oklch(0.94 0.006 150);
+  --sidebar-border: oklch(0.28 0.008 150);
+  --sidebar-ring: oklch(0.62 0.10 147.5);
 }
 
 @keyframes fadeInUp {

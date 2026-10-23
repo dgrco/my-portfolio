@@ -17,8 +17,8 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f0ece3",
-          color: "#141210",
+          background: "#ebf3ec",
+          color: "#121b13",
           padding: "72px 80px",
         }}
       >
@@ -27,7 +27,7 @@ export default function OpengraphImage() {
             fontSize: 22,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "#6b6154",
+            color: "#535e55",
           }}
         >
           Software engineer
@@ -39,7 +39,7 @@ export default function OpengraphImage() {
           <div
             style={{
               fontSize: 32,
-              color: "#6b6154",
+              color: "#535e55",
               marginTop: 24,
               maxWidth: 820,
               lineHeight: 1.4,
